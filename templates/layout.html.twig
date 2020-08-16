@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>{% block title %}{% endblock %}</title>
+        
+        {% block stylesheets %}
+        {% endblock %}
+    
+    </head>
+
+    <body>
+
+    {% block menu %}
+        <nav class="navbar navbar-expand navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">Car Storing</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarsExample02">
+                <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="../../public/car/add">Ajouter</a>
+                </li>
+                </ul>
+            </div>
+        </nav>
+   
+    {% endblock %}
+    
+    {% block contenu %}
+
+    {% endblock %}
+
+    </body>
+</html>

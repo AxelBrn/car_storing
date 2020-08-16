@@ -1,0 +1,54 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Ajouter une voiture{% endblock %}
+{% block stylesheets %}
+<link href="../../public/css/bootstrap.css"  type="text/css" rel="stylesheet"/>
+<script src="../../public/js/jquery.js"></script>
+<script src="../../public/js/bootstrap.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block contenu %}
+
+    {% if alert %}
+    <div class="toast bg-success m-auto" role="alert" data-autohide="false" aria-live="assertive" aria-atomic="true">
+        <div class="toast-body">
+            <strong class="mr-auto text-light">Ajouté avec succès</strong>
+            <button type="button" class="ml-2 mb-1 close btn-light" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="card mx-auto w-50 mt-5 text-center">
+        <div class="card-body">
+            <h5 class="card-title">Ajouter une voiture</h5>
+            {{ form_start(form) }}
+                <div class="form-group">
+                    {{ form_row(form.name, {'label':'Nom', 'attr':{'class':'form-control w-50 mx-auto'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.nbSeat, {'label':'Nombre de sièges', 'attr':{'class':'form-control w-50 mx-auto'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.color, {'label':'Couleur', 'attr':{'class':'form-control w-50 mx-auto'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.width, {'label':'Largeur', 'attr':{'class':'form-control w-50 mx-auto', 'step':'0.001'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.height, {'label':'Hauteur', 'attr':{'class':'form-control w-50 mx-auto', 'step':'0.001'}}) }}
+                </div>
+                {{ form_widget(form) }}
+                <button type="submit" class="btn btn-primary">Envoyer</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+<script>
+    $(document).ready(function(){
+      $('.toast').toast('show')
+    });
+</script>
+{% endblock %}
