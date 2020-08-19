@@ -1,6 +1,6 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Ajouter une voiture{% endblock %}
+{% block title %}Ajouter un Parking{% endblock %}
 {% block stylesheets %}
 <link href="../../public/css/bootstrap.css"  type="text/css" rel="stylesheet"/>
 <script src="../../public/js/jquery.js"></script>
@@ -23,16 +23,16 @@
 
     <div class="card mx-auto w-50 mt-5 text-center">
         <div class="card-body">
-            <h5 class="card-title">Ajouter une voiture</h5>
+            <h5 class="card-title">Ajouter un parking</h5>
             {{ form_start(form) }}
                 <div class="form-group">
                     {{ form_row(form.name, {'label':'Nom', 'attr':{'class':'form-control w-50 mx-auto'}}) }}
                 </div>
                 <div class="form-group">
-                    {{ form_row(form.nbSeat, {'label':'Nombre de sièges', 'attr':{'class':'form-control w-50 mx-auto'}}) }}
+                    {{ form_row(form.localisation, {'label':'Localisation', 'attr':{'class':'form-control w-50 mx-auto'}}) }}
                 </div>
                 <div class="form-group">
-                    {{ form_row(form.color, {'label':'Couleur', 'attr':{'class':'form-control w-50 mx-auto'}}) }}
+                    {{ form_row(form.nbParkingSpaces, {'label':'Places de parking', 'attr':{'class':'form-control w-50 mx-auto'}}) }}
                 </div>
                 <div class="form-group">
                     {{ form_row(form.width, {'label':'Largeur', 'attr':{'class':'form-control w-50 mx-auto', 'step':'0.001'}}) }}

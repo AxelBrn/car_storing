@@ -44,6 +44,11 @@ class Car
      */
     private $width;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Parking::class, inversedBy="cars")
+     */
+    private $parking;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +110,18 @@ class Car
     public function setWidth(?float $width): self
     {
         $this->width = $width;
+
+        return $this;
+    }
+
+    public function getParking(): ?Parking
+    {
+        return $this->parking;
+    }
+
+    public function setParking(?Parking $parking): self
+    {
+        $this->parking = $parking;
 
         return $this;
     }

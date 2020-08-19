@@ -12,7 +12,7 @@ class CarController extends AbstractController
 {
 
     /**
-     * @Route("/car/add", name="car")
+     * @Route("/car/add", name="add_car")
      */
     public function addCar(Request $request)
     {
@@ -22,7 +22,6 @@ class CarController extends AbstractController
 	    $form->handleRequest($request);
  
         if ($form->isSubmitted() && $form->isValid()) {
-            $etudiant = $form->getData();
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($car);
             $entityManager->flush();
