@@ -1,0 +1,73 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Lier une voiture à un parking{% endblock %}
+{% block stylesheets %}
+<link href="../../public/css/bootstrap.css"  type="text/css" rel="stylesheet"/>
+<link href="../../public/css/jquery-ui.css"  type="text/css" rel="stylesheet"/>
+<script src="../../public/js/jquery.js"></script>
+<script src="../../public/js/jquery-ui.js"></script>
+<style>
+  #sortable1, #sortable2 {
+    min-height: 150px;
+    min-width: 200px;
+    max-width: 200px;
+  }
+  .carre {
+    width:15px;
+    height:15px;
+    margin-left: 10px;
+    border: 2px solid black;
+  }
+</style>
+{% endblock %}
+
+{% block contenu %}
+
+<h2 class="text-muted text-center mb-10 mt-3">Ajouter des voitures à des parkings</h2>
+
+<div class="d-flex flex-row justify-content-center">
+    <div class=" mt-5 mx-2 card">
+    <h5 class="text-muted text-center mb-2 mx-2">Voitures sans parking</h5>
+    <ul id="sortable1" class="list-group mx-auto">
+        {% for car in cars %}
+            <li type="button" class="list-group-item list-group-item-action d-flex flex-row justify-content-center align-items-center">{{ car.name }}<div class="carre" style="background-color:{{car.color}};"></div></li>
+        {% endfor %}
+    </ul>
+    </div>
+
+<br>
+
+    {% for parking in parkings %}
+    <div class=" mt-5 mx-2 card">
+    <h5 class="text-muted text-center mx-2">{{ parking.name }}</h5>
+    <h5 class="text-muted text-center mb-2 mx-2">{{ parking.localisation }}</h5>
+    <ul id="sortable2" class="list-group mx-auto">
+        {% for car in parking.cars %}
+          <li type="button" class="list-group-item list-group-item-action d-flex flex-row justify-content-center align-items-center">{{ car.name }}<div class="carre" style="background-color:{{car.color}};"></div></li>
+        {% endfor %}
+    </ul>
+    </div>
+    {% endfor %}
+</div>
+<script>
+
+$( function() {
+    $( "#sortable1, #sortable2" ).sortable({
+      connectWith: ".list-group",
+      stop: (e, ui) => {
+          const voiture = ui.item[0].textContent;
+          const parking = ui.item[0].offsetParent.firstElementChild.textContent;
+          var data = {
+            carName: ui.item[0].textContent,
+            parkingName: ui.item[0].offsetParent.firstElementChild.textContent
+          };
+          $.ajax({
+            url: 'link',
+            type: 'post',
+            data: data
+          });
+      }
+    }).disableSelection();
+  } );
+</script>
+{% endblock %}
