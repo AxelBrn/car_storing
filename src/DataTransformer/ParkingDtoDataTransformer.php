@@ -6,6 +6,7 @@ namespace App\DataTransformer;
 use ApiPlatform\Core\DataTransformer\DataTransformerInterface;
 use App\Entity\Parking;
 use App\Entity\ParkingSpace;
+use ApiPlatform\Core\Serializer\AbstractItemNormalizer;
 
 final class ParkingDtoDataTransformer implements DataTransformerInterface
 {
@@ -14,17 +15,24 @@ final class ParkingDtoDataTransformer implements DataTransformerInterface
      */
     public function transform($data, string $to, array $context = [])
     {
-        $parking = new Parking();
-        $parking->setName($data->getName());
-        $parking->setLocalisation($data->getLocalisation());
-        for($i = 0; $i < $data->getNbParkingSpaces(); $i++) {
-            $parkingSpace = new ParkingSpace();
-            $parkingSpace->setHeight($data->getHeight());
-            $parkingSpace->setWidth($data->getWidth());
-            $parking->addParkingSpace($parkingSpace);
-        }
+        if(isset($context[AbstractItemNormalizer::OBJECT_TO_POPULATE]) ) {
+            $existingParking = $context[AbstractItemNormalizer::OBJECT_TO_POPULATE];
+            $existingParking->setName($data->getName());
+            $existingParking->setLocalisation($data->getLocalisation());
+            return $existingParking;
+        } else {
+            $parking = new Parking();
+            $parking->setName($data->getName());
+            $parking->setLocalisation($data->getLocalisation());
+            for($i = 0; $i < $data->getNbParkingSpaces(); $i++) {
+                $parkingSpace = new ParkingSpace();
+                $parkingSpace->setHeight($data->getHeight());
+                $parkingSpace->setWidth($data->getWidth());
+                $parking->addParkingSpace($parkingSpace);
+            }
 
-        return $parking;
+            return $parking;
+        }
     }
 
     /**

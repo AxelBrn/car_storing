@@ -4,6 +4,7 @@
 namespace App\Dto;
 
 final class ParkingDto {
+
     /**
      * @var string
      */

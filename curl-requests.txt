@@ -1,0 +1,51 @@
+Ajouter une voiture : 
+
+curl.exe -X POST -H "accept: application/json" -H "Content-Type: application/json" -d '{ \"name\" : \"dacia duster\" , \"nbSeat\" : 5 , \"color\" : \"#f0f0f0\" , \"height\" : 700 , \"width\" : 350 , \"parking\" : null }' http://localhost/car_storing/public/api/cars 
+
+Réponse : 
+
+{"id":9,"name":"dacia duster","nbSeat":5,"color":"#f0f0f0","height":700,"width":350}
+
+Ajouter un parking :
+
+curl.exe -X POST -H "accept: application/json" -H "Content-Type: application/json" -d '{ \"name\" : \"Parking du marché\" , \"localisation\" : \"9 Rue de la boule\" , \"nbParkingSpaces\" : 4 ,  \"height\" : 800 , \"width\" : 500 }' http://localhost/car_storing/public/api/parkings
+
+Réponse : 
+
+{"id":4,"name":"Parking du marché","localisation":"9 Rue de la boule","cars":[],"parkingSpaces":["\/car_storing\/public\/api\/parking_spaces\/6","\/car_storing\/public\/api\/parking_spaces\/7","\/car_storing\/public\/api\/parking_spaces\/8","\/car_storing\/public\/api\/parking_spaces\/9"]}
+
+Modifier un Parking :
+
+curl.exe -X PATCH -H "accept: application/json" -H "Content-Type: application/merge-patch+json" -d '{ \"name\" : \"Parking du marché\" , \"localisation\" : \"11 Rue de la boule\" }' http://localhost/car_storing/public/api/parkings/4
+
+Réponse : 
+
+{"id":4,"name":"Parking du marché","localisation":"11 Rue de la boule","cars":[],"parkingSpaces":["\/car_storing\/public\/api\/parking_spaces\/6","\/car_storing\/public\/api\/parking_spaces\/7","\/car_storing\/public\/api\/parking_spaces\/8","\/car_storing\/public\/api\/parking_spaces\/9"]}
+
+Lier un parking à une voiture :
+
+curl.exe -X PATCH -H "accept: application/json" -H "Content-Type: application/merge-patch+json" -d '{ \"parking\":\"/car_storing/public/api/parkings/4\" }' http://localhost/car_storing/public/api/cars/9
+
+Réponse :
+
+{"id":9,"name":"dacia duster","nbSeat":5,"color":"#f0f0f0","height":700,"width":350,"parking":"\/car_storing\/public\/api\/parkings\/4"}
+
+Lister les voitures :
+
+curl.exe -X GET http://localhost/car_storing/public/api/cars
+
+Réponse : 
+
+[{"id":6,"name":"opel corsa","nbSeat":5,"color":"#ffffff","height":800,"width":200,"parking":"\/car_storing\/public\/api\/parkings\/2"},{"id":9,"name":"dacia duster","nbSeat":5,"color":"#f0f0f0","height":700,"width":350,"parking":"\/car_storing\/public\/api\/parkings\/4"}]
+
+Lister les parkings :
+
+curl.exe -X GET http://localhost/car_storing/public/api/parkings
+
+Réponse :
+
+{"@context":"\/car_storing\/public\/api\/contexts\/Parking","@id":"\/car_storing\/public\/api\/parkings","@type":"hydra:Collection","hydra:member":[{"@id":"\/car_storing\/public\/api\/parkings\/1","@type":"Parking","id":1,"name":"Parking de la place","localisation":"12 Rue Traverse","cars":[],"parkingSpaces":["\/car_storing\/public\/api\/parking_spaces\/1","\/car_storing\/public\/api\/parking_spaces\/2","\/car_storing\/public\/api\/parking_spaces\/3"]},{"@id":"\/car_storing\/public\/api\/parkings\/2","@type":"Parking","id":2,"name":"Parking Rue de Falaise","localisation":"64 Rue de Falaise, CAEN","cars":["\/car_storing\/public\/api\/cars\/6"],"parkingSpaces":[]},{"@id":"\/car_storing\/public\/api\/parkings\/3","@type":"Parking","id":3,"name":"parkingde l\u0027eglise","localisation":"saint cornier des landes","cars":[],"parkingSpaces":["\/car_storing\/public\/api\/parking_spaces\/4","\/car_storing\/public\/api\/parking_spaces\/5"]},{"@id":"\/car_storing\/public\/api\/parkings\/4","@type":"Parking","id":4,"name":"Parking du marché","localisation":"11 Rue de la boule","cars":["\/car_storing\/public\/api\/cars\/9"],"parkingSpaces":["\/car_storing\/public\/api\/parking_spaces\/6","\/car_storing\/public\/api\/parking_spaces\/7","\/car_storing\/public\/api\/parking_spaces\/8","\/car_storing\/public\/api\/parking_spaces\/9"]}],"hydra:totalItems":4}
+
+
+
+
